@@ -15,5 +15,13 @@ path = "src/main.rs"
 [dependencies]
 anyhow.workspace = true
 clap.workspace = true
+directories.workspace = true
+hex.workspace = true
+qrcode.workspace = true
+rand_core.workspace = true
+rpassword.workspace = true
 sayeh-core = { path = "../sayeh-core", features = ["contacts"] }
-
+serde.workspace = true
+serde_json.workspace = true
+tempfile.workspace = true
+zeroize.workspace = true

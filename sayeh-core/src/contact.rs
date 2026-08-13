@@ -91,6 +91,18 @@ impl IdentityPublic {
         &self.0
     }
 
+    /// Rejects low-order public inputs before they enter a contact store.
+    pub fn validate(bytes: [u8; 32]) -> Result<Self> {
+        let public = PublicKey::from(bytes);
+        let probe = StaticSecret::from([0x42u8; 32]);
+        let shared = probe.diffie_hellman(&public);
+        if bool::from(shared.as_bytes().ct_eq(&[0u8; 32])) {
+            Err(Error::KeyAgreement)
+        } else {
+            Ok(Self(bytes))
+        }
+    }
+
     /// Constant-time equality for identity checks near secret-bearing paths.
     pub fn ct_eq(&self, other: &Self) -> bool {
         bool::from(self.0.ct_eq(&other.0))

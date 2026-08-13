@@ -16,6 +16,8 @@ pub mod frame;
 pub mod pipeline;
 pub mod probe;
 pub mod steganalysis;
+#[cfg(feature = "contacts")]
+pub mod vault;
 
 pub use error::{Error, Result};
 
