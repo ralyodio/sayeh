@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sayeh</string>
+    <string name="app_subtitle">Encrypted messages in ordinary text</string>
+    <string name="hide_tab">Hide</string>
+    <string name="open_tab">Open</string>
+    <string name="cover_label">Visible cover</string>
+    <string name="cover_hint">Write the ordinary message people should see</string>
+    <string name="secret_label">Secret message</string>
+    <string name="password_label">Password (optional)</string>
+    <string name="carrier_label">Carrier</string>
+    <string name="carrier_zero_width">Zero-width</string>
+    <string name="carrier_compat">Compat</string>
+    <string name="carrier_variation">Selectors</string>
+    <string name="carrier_tags">Tags</string>
+    <string name="hide_action">Encrypt and hide</string>
+    <string name="incoming_label">Received text</string>
+    <string name="open_action">Open message</string>
+    <string name="scan_action">Scan</string>
+    <string name="strip_action">Safe strip</string>
+    <string name="share_action">Share</string>
+    <string name="copy_action">Copy encrypted message</string>
+    <string name="paste_action">Paste directly from clipboard</string>
+    <string name="open_generated_action">Open this generated message</string>
+    <string name="clear_action">Clear</string>
+    <string name="working">Deriving the key…</string>
+    <string name="hidden_ready">Encrypted message ready</string>
+    <string name="hidden_details">%1$d payload bytes · %2$d container bytes · %3$d carrier characters</string>
+    <string name="opened_ready">Message opened</string>
+    <string name="scan_ready">Wire v%1$d · %2$s · %3$d bytes · %4$d carrier characters</string>
+    <string name="scan_password">password</string>
+    <string name="scan_contact">contact</string>
+    <string name="stripped_ready">Sayeh carriers removed safely</string>
+    <string name="missing_hide_input">Enter a secret message.</string>
+    <string name="missing_open_input">Paste a received message.</string>
+    <string name="hide_failed">The message could not be hidden.</string>
+    <string name="open_failed">The message could not be opened.</string>
+    <string name="scan_failed">No valid Sayeh v4 message was found.</string>
+    <string name="copied">Copied as sensitive content</string>
+    <string name="copy_changed">The clipboard changed the hidden characters. Use Share instead.</string>
+    <string name="clipboard_empty">The clipboard has no text.</string>
+    <string name="file_opened">File payload: %1$s (%2$d bytes). File export is not in this preview.</string>
+    <string name="length_tradeoff">The cover is kept exactly as supplied. Message length and carrier density remain visible to an inspector.</string>
+</resources>

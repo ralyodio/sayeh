@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">سایه</string>
+    <string name="app_subtitle">پیام رمز‌شده درون متن عادی</string>
+    <string name="hide_tab">پنهان‌کردن</string>
+    <string name="open_tab">بازکردن</string>
+    <string name="cover_label">متن نمایان</string>
+    <string name="cover_hint">همان پیام عادی را بنویسید که دیگران باید ببینند</string>
+    <string name="secret_label">پیام محرمانه</string>
+    <string name="password_label">گذرواژه (اختیاری)</string>
+    <string name="carrier_label">حامل</string>
+    <string name="carrier_zero_width">نامرئی</string>
+    <string name="carrier_compat">سازگار</string>
+    <string name="carrier_variation">انتخاب‌گر</string>
+    <string name="carrier_tags">برچسب</string>
+    <string name="hide_action">رمز و پنهان کن</string>
+    <string name="incoming_label">متن دریافتی</string>
+    <string name="open_action">پیام را باز کن</string>
+    <string name="scan_action">بررسی</string>
+    <string name="strip_action">پاک‌سازی امن</string>
+    <string name="share_action">ارسال</string>
+    <string name="copy_action">کپی پیام رمز‌شده</string>
+    <string name="paste_action">چسباندن مستقیم از کلیپ‌بورد</string>
+    <string name="open_generated_action">بازکردن همین خروجی</string>
+    <string name="clear_action">پاک‌کردن</string>
+    <string name="working">در حال ساخت کلید…</string>
+    <string name="hidden_ready">پیام رمز‌شده آماده است</string>
+    <string name="hidden_details">%1$d بایت محتوا · %2$d بایت بسته · %3$d نویسهٔ حامل</string>
+    <string name="opened_ready">پیام باز شد</string>
+    <string name="scan_ready">قالب v%1$d · %2$s · %3$d بایت · %4$d نویسهٔ حامل</string>
+    <string name="scan_password">گذرواژه</string>
+    <string name="scan_contact">مخاطب</string>
+    <string name="stripped_ready">حامل‌های سایه بدون دست‌زدن به نیم‌فاصله و ایموجی پاک شدند</string>
+    <string name="missing_hide_input">پیام محرمانه را وارد کنید.</string>
+    <string name="missing_open_input">متن دریافتی را وارد کنید.</string>
+    <string name="hide_failed">پنهان‌کردن پیام انجام نشد.</string>
+    <string name="open_failed">بازکردن پیام انجام نشد.</string>
+    <string name="scan_failed">پیام معتبر سایه با قالب v4 پیدا نشد.</string>
+    <string name="copied">محتوا با برچسب حساس رونویسی شد</string>
+    <string name="copy_changed">کلیپ‌بورد نویسه‌های پنهان را تغییر داد؛ از دکمهٔ ارسال استفاده کنید.</string>
+    <string name="clipboard_empty">متنی در کلیپ‌بورد نیست.</string>
+    <string name="file_opened">محتوای فایل: %1$s (%2$d بایت). خروجی فایل در این پیش‌نمایش هنوز آماده نیست.</string>
+    <string name="length_tradeoff">متن نمایان دقیقاً همان چیزی می‌ماند که نوشته‌اید. طول پیام و تراکم حامل‌ها برای بازرس قابل مشاهده است.</string>
+</resources>

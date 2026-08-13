@@ -1,0 +1,3 @@
+-keep class ir.sayeh.ffi.** { *; }
+-keep class com.sun.jna.** { *; }
+-dontwarn com.sun.jna.**
