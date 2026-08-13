@@ -1,0 +1,17 @@
+[package]
+name = "sayeh-wasm"
+description = "WebAssembly bindings for Sayeh"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+sayeh-core = { path = "../sayeh-core" }
+wasm-bindgen.workspace = true
+

@@ -1,0 +1,19 @@
+[package]
+name = "sayeh-cli"
+description = "Command-line interface for Sayeh"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "sayeh"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+clap.workspace = true
+sayeh-core = { path = "../sayeh-core", features = ["contacts"] }
+

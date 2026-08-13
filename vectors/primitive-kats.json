@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "argon2id": [
+    {
+      "name": "RFC 9106 section 5.3",
+      "source": "https://www.rfc-editor.org/rfc/rfc9106.html#section-5.3",
+      "version": 19,
+      "memory_kib": 32,
+      "passes": 3,
+      "lanes": 4,
+      "password_hex": "0101010101010101010101010101010101010101010101010101010101010101",
+      "salt_hex": "02020202020202020202020202020202",
+      "secret_hex": "0303030303030303",
+      "associated_data_hex": "040404040404040404040404",
+      "tag_hex": "0d640df58d78766c08c037a34a8b53c9d01ef0452d75b65eb52520e96b01e659"
+    }
+  ],
+  "xchacha20poly1305": [
+    {
+      "name": "draft-irtf-cfrg-xchacha-03 appendix A.3.1",
+      "source": "https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-xchacha#appendix-A.3.1",
+      "key_hex": "808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9f",
+      "nonce_hex": "404142434445464748494a4b4c4d4e4f5051525354555657",
+      "aad_hex": "50515253c0c1c2c3c4c5c6c7",
+      "plaintext_hex": "4c616469657320616e642047656e746c656d656e206f662074686520636c617373206f66202739393a204966204920636f756c64206f6666657220796f75206f6e6c79206f6e652074697020666f7220746865206675747572652c2073756e73637265656e20776f756c642062652069742e",
+      "ciphertext_and_tag_hex": "bd6d179d3e83d43b9576579493c0e939572a1700252bfaccbed2902c21396cbb731c7f1b0b4aa6440bf3a82f4eda7e39ae64c6708c54c216cb96b72e1213b4522f8c9ba40db5d945b11b69b982c1bb9e3f3fac2bc369488f76b2383565d3fff921f9664c97637da9768812f615c68b13b52ec0875924c1c7987947deafd8780acf49"
+    }
+  ],
+  "x25519": [
+    {
+      "name": "RFC 7748 section 6.1",
+      "source": "https://www.rfc-editor.org/rfc/rfc7748.html#section-6.1",
+      "alice_private_hex": "77076d0a7318a57d3c16c17251b26645df4c2f87ebc0992ab177fba51db92c2a",
+      "alice_public_hex": "8520f0098930a754748b7ddcb43ef75a0dbf3a0d26381af4eba4a98eaa9b4e6a",
+      "bob_private_hex": "5dab087e624a8a4b79e17f8b83800ee66f3bb1292618b6fd1c2f8b27ff88e0eb",
+      "bob_public_hex": "de9edb7d7b7dc1b4d35b61c2ece435373f8343c85b78674dadfc7e146f882b4f",
+      "shared_secret_hex": "4a5d9d5ba4ce2de1728e3bf480350f25e07e21c947d19e3376f09b3c1e161742"
+    }
+  ]
+}
+

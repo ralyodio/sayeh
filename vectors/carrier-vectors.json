@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "input_hex": "53594834",
+  "vectors": [
+    {
+      "carrier": "zero-width",
+      "carrier_id": 1,
+      "bits_per_symbol": 2,
+      "codepoints": [
+        "U+2060", "U+2060", "U+200B", "U+2064",
+        "U+2060", "U+2060", "U+2062", "U+2060",
+        "U+2060", "U+200B", "U+2062", "U+200B",
+        "U+200B", "U+2064", "U+2060", "U+200B"
+      ]
+    },
+    {
+      "carrier": "zero-width-compat",
+      "carrier_id": 2,
+      "bits_per_symbol": 1,
+      "codepoints": [
+        "U+200B", "U+2060", "U+200B", "U+2060", "U+200B", "U+200B", "U+2060", "U+2060",
+        "U+200B", "U+2060", "U+200B", "U+2060", "U+2060", "U+200B", "U+200B", "U+2060",
+        "U+200B", "U+2060", "U+200B", "U+200B", "U+2060", "U+200B", "U+200B", "U+200B",
+        "U+200B", "U+200B", "U+2060", "U+2060", "U+200B", "U+2060", "U+200B", "U+200B"
+      ]
+    },
+    {
+      "carrier": "variation-selectors",
+      "carrier_id": 3,
+      "bits_per_symbol": 4,
+      "codepoints": [
+        "U+FE05", "U+FE03", "U+FE05", "U+FE09",
+        "U+FE04", "U+FE08", "U+FE03", "U+FE04"
+      ]
+    }
+  ]
+}
+

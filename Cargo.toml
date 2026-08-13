@@ -1,0 +1,49 @@
+[workspace]
+resolver = "2"
+members = [
+    "sayeh-core",
+    "sayeh-cli",
+    "sayeh-ffi",
+    "sayeh-wasm",
+    "xtask",
+]
+exclude = ["fuzz"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/EntropyRoot/sayeh"
+authors = ["EntropyRoot"]
+
+[workspace.dependencies]
+anyhow = "1.0.98"
+argon2 = { version = "0.5.3", default-features = false, features = ["alloc", "zeroize"] }
+chacha20poly1305 = { version = "0.10.1", default-features = false, features = ["alloc", "getrandom"] }
+clap = { version = "4.5.40", features = ["derive", "env", "wrap_help"] }
+flate2 = { version = "1.1.2", default-features = false, features = ["rust_backend"] }
+getrandom = { version = "0.2.16", features = ["js"] }
+hex = "0.4.3"
+hkdf = "0.12.4"
+proptest = "1.7.0"
+rand_chacha = "0.3.1"
+rand_core = { version = "0.6.4", features = ["getrandom"] }
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.140"
+sha2 = "0.10.9"
+subtle = "2.6.1"
+thiserror = "2.0.12"
+unicode-general-category = "1.0.0"
+unicode-script = "0.5.7"
+unicode-segmentation = "1.12.0"
+uniffi = "0.29.4"
+wasm-bindgen = "0.2.100"
+x25519-dalek = { version = "2.0.1", default-features = false, features = ["static_secrets", "zeroize"] }
+zeroize = { version = "1.8.1", features = ["derive"] }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = "symbols"
+
