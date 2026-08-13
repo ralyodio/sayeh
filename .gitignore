@@ -1,4 +1,4 @@
-/target/
+**/target/
 /build/
 **/build/
 **/.gradle/
@@ -10,4 +10,3 @@ AGENT_BRIEF.md
 *.swp
 *.tmp
 .DS_Store
-

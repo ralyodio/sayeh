@@ -34,12 +34,17 @@ x25519-dalek = { workspace = true, optional = true }
 zeroize.workspace = true
 
 [dev-dependencies]
+criterion.workspace = true
 hex.workspace = true
 proptest.workspace = true
+serde.workspace = true
 serde_json.workspace = true
+
+[[bench]]
+name = "argon2"
+harness = false
 
 [lints.clippy]
 expect_used = "deny"
 panic = "deny"
 unwrap_used = "deny"
-

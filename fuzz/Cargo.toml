@@ -1,0 +1,26 @@
+[package]
+name = "sayeh-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+sayeh-core = { path = "../sayeh-core", features = ["contacts"] }
+
+[[bin]]
+name = "container_parser"
+path = "fuzz_targets/container_parser.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "carrier_decoders"
+path = "fuzz_targets/carrier_decoders.rs"
+test = false
+doc = false
+bench = false

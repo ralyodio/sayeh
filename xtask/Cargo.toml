@@ -8,4 +8,9 @@ license.workspace = true
 
 [dependencies]
 anyhow.workspace = true
-
+hex.workspace = true
+rand_chacha.workspace = true
+rand_core.workspace = true
+sayeh-core = { path = "../sayeh-core", features = ["contacts"] }
+serde_json.workspace = true
+sha2.workspace = true

@@ -32,7 +32,14 @@
         "U+FE05", "U+FE03", "U+FE05", "U+FE09",
         "U+FE04", "U+FE08", "U+FE03", "U+FE04"
       ]
+    },
+    {
+      "carrier": "unicode-tags",
+      "carrier_id": 4,
+      "bits_per_symbol": 7,
+      "codepoints": [
+        "U+E0029", "U+E0056", "U+E0029", "U+E0003", "U+E0020"
+      ]
     }
   ]
 }
-
