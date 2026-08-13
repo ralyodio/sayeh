@@ -1,0 +1,228 @@
+{
+  "baseline": [
+    {
+      "carrier": "zero-width",
+      "corpus_occurrences": 0,
+      "detected_windows": 0,
+      "false_positive_rate": 0.0
+    },
+    {
+      "carrier": "zero-width-compat",
+      "corpus_occurrences": 0,
+      "detected_windows": 0,
+      "false_positive_rate": 0.0
+    },
+    {
+      "carrier": "variation-selectors",
+      "corpus_occurrences": 0,
+      "detected_windows": 0,
+      "false_positive_rate": 0.0
+    },
+    {
+      "carrier": "unicode-tags",
+      "corpus_occurrences": 0,
+      "detected_windows": 0,
+      "false_positive_rate": 0.0
+    }
+  ],
+  "corpus": {
+    "archive_sha256": "a4433d5da5e62fdbede49efa572a53a0139fff1014ffbe86cb263e17cbb4a837",
+    "license_note": "Non-commercial, non-profit educational and research use only",
+    "name": "NPS Chat Corpus",
+    "posts": 10567,
+    "redistributed": false,
+    "release": "1.0 (July 2008)",
+    "sample_windows": 100,
+    "source_url": "https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/nps_chat.zip",
+    "target_scalars_per_window": 2048,
+    "unicode_scalars": 230623,
+    "xml_files": 15
+  },
+  "implementation": {
+    "detector_threshold": 50,
+    "embedding_revision": 1,
+    "wire_version": 4
+  },
+  "measurement_date": "2026-08-13",
+  "measurements": [
+    {
+      "carrier": "zero-width",
+      "heuristic_detected": 0,
+      "heuristic_detection_rate": 0.0,
+      "mean_density": 0.0014480482052734766,
+      "mean_longest_run": 1.0,
+      "mean_positional_entropy": 0.44358231967761774,
+      "mean_suspicion_score": 40.0,
+      "mean_symbols": 3.0,
+      "presence_detected": 100,
+      "presence_detection_rate": 1.0,
+      "rate_percent": 0.1,
+      "samples": 100
+    },
+    {
+      "carrier": "zero-width",
+      "heuristic_detected": 100,
+      "heuristic_detection_rate": 1.0,
+      "mean_density": 0.0053140206859125395,
+      "mean_longest_run": 1.0,
+      "mean_positional_entropy": 0.7724094029243106,
+      "mean_suspicion_score": 56.3,
+      "mean_symbols": 11.01,
+      "presence_detected": 100,
+      "presence_detection_rate": 1.0,
+      "rate_percent": 0.5,
+      "samples": 100
+    },
+    {
+      "carrier": "zero-width",
+      "heuristic_detected": 100,
+      "heuristic_detection_rate": 1.0,
+      "mean_density": 0.010187600540848427,
+      "mean_longest_run": 1.0,
+      "mean_positional_entropy": 0.8845053018342901,
+      "mean_suspicion_score": 65.95,
+      "mean_symbols": 21.11,
+      "presence_detected": 100,
+      "presence_detection_rate": 1.0,
+      "rate_percent": 1.0,
+      "samples": 100
+    },
+    {
+      "carrier": "zero-width-compat",
+      "heuristic_detected": 0,
+      "heuristic_detection_rate": 0.0,
+      "mean_density": 0.0014480482052734766,
+      "mean_longest_run": 1.0,
+      "mean_positional_entropy": 0.4474820696824255,
+      "mean_suspicion_score": 40.0,
+      "mean_symbols": 3.0,
+      "presence_detected": 100,
+      "presence_detection_rate": 1.0,
+      "rate_percent": 0.1,
+      "samples": 100
+    },
+    {
+      "carrier": "zero-width-compat",
+      "heuristic_detected": 100,
+      "heuristic_detection_rate": 1.0,
+      "mean_density": 0.0053140206859125395,
+      "mean_longest_run": 1.0,
+      "mean_positional_entropy": 0.7910625508206712,
+      "mean_suspicion_score": 67.25,
+      "mean_symbols": 11.01,
+      "presence_detected": 100,
+      "presence_detection_rate": 1.0,
+      "rate_percent": 0.5,
+      "samples": 100
+    },
+    {
+      "carrier": "zero-width-compat",
+      "heuristic_detected": 100,
+      "heuristic_detection_rate": 1.0,
+      "mean_density": 0.010187600540848427,
+      "mean_longest_run": 1.0,
+      "mean_positional_entropy": 0.8824681020723542,
+      "mean_suspicion_score": 68.1,
+      "mean_symbols": 21.11,
+      "presence_detected": 100,
+      "presence_detection_rate": 1.0,
+      "rate_percent": 1.0,
+      "samples": 100
+    },
+    {
+      "carrier": "variation-selectors",
+      "heuristic_detected": 0,
+      "heuristic_detection_rate": 0.0,
+      "mean_density": 0.0014480482052734766,
+      "mean_longest_run": 1.0,
+      "mean_positional_entropy": 0.443037625237981,
+      "mean_suspicion_score": 40.0,
+      "mean_symbols": 3.0,
+      "presence_detected": 100,
+      "presence_detection_rate": 1.0,
+      "rate_percent": 0.1,
+      "samples": 100
+    },
+    {
+      "carrier": "variation-selectors",
+      "heuristic_detected": 100,
+      "heuristic_detection_rate": 1.0,
+      "mean_density": 0.0053140206859125395,
+      "mean_longest_run": 1.0,
+      "mean_positional_entropy": 0.7834081332609694,
+      "mean_suspicion_score": 56.1,
+      "mean_symbols": 11.01,
+      "presence_detected": 100,
+      "presence_detection_rate": 1.0,
+      "rate_percent": 0.5,
+      "samples": 100
+    },
+    {
+      "carrier": "variation-selectors",
+      "heuristic_detected": 100,
+      "heuristic_detection_rate": 1.0,
+      "mean_density": 0.010187600540848427,
+      "mean_longest_run": 1.0,
+      "mean_positional_entropy": 0.8713949752357669,
+      "mean_suspicion_score": 55.2,
+      "mean_symbols": 21.11,
+      "presence_detected": 100,
+      "presence_detection_rate": 1.0,
+      "rate_percent": 1.0,
+      "samples": 100
+    },
+    {
+      "carrier": "unicode-tags",
+      "heuristic_detected": 0,
+      "heuristic_detection_rate": 0.0,
+      "mean_density": 0.0014480482052734766,
+      "mean_longest_run": 1.0,
+      "mean_positional_entropy": 0.43330997245779945,
+      "mean_suspicion_score": 40.0,
+      "mean_symbols": 3.0,
+      "presence_detected": 100,
+      "presence_detection_rate": 1.0,
+      "rate_percent": 0.1,
+      "samples": 100
+    },
+    {
+      "carrier": "unicode-tags",
+      "heuristic_detected": 100,
+      "heuristic_detection_rate": 1.0,
+      "mean_density": 0.0053140206859125395,
+      "mean_longest_run": 1.0,
+      "mean_positional_entropy": 0.7794813469632509,
+      "mean_suspicion_score": 56.0,
+      "mean_symbols": 11.01,
+      "presence_detected": 100,
+      "presence_detection_rate": 1.0,
+      "rate_percent": 0.5,
+      "samples": 100
+    },
+    {
+      "carrier": "unicode-tags",
+      "heuristic_detected": 100,
+      "heuristic_detection_rate": 1.0,
+      "mean_density": 0.010187600540848427,
+      "mean_longest_run": 1.0,
+      "mean_positional_entropy": 0.8807088551077351,
+      "mean_suspicion_score": 55.1,
+      "mean_symbols": 21.11,
+      "presence_detected": 100,
+      "presence_detection_rate": 1.0,
+      "rate_percent": 1.0,
+      "samples": 100
+    }
+  ],
+  "method": {
+    "payload": "Uniform carrier symbols from a deterministic ChaCha20 stream, scattered by embedding revision 1",
+    "rate_denominator": "visible Unicode scalars in each cover window",
+    "rates_percent": [
+      0.1,
+      0.5,
+      1.0
+    ],
+    "windowing": "Consecutive posts joined by newline until at least 2048 Unicode scalars; first 100 windows"
+  },
+  "schema": 1
+}
