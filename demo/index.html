@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>Sayeh browser demo</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="shell masthead">
+      <div>
+        <p class="eyebrow">SAYEH / WIRE V4</p>
+        <h1>Encrypted messages inside ordinary text</h1>
+        <p class="lede">A local browser surface for the same Rust core used by the command line.</p>
+      </div>
+      <div class="local-mark"><span></span>Runs on this device</div>
+    </header>
+
+    <main class="shell">
+      <aside class="notice">
+        <strong>Concealment is not deniability.</strong>
+        Known carrier codepoints are easy to scan for, and transports may delete them. Probe the
+        exact send path first. Passwords and plaintext are never sent to a server by this page.
+      </aside>
+
+      <nav class="tabs" aria-label="Tools">
+        <button class="tab active" data-panel="hide">Hide</button>
+        <button class="tab" data-panel="reveal">Reveal</button>
+        <button class="tab" data-panel="inspect">Inspect</button>
+        <button class="tab" data-panel="probe">Transport probe</button>
+      </nav>
+
+      <section id="hide" class="panel active">
+        <div class="panel-heading">
+          <div><span class="step">01</span><h2>Hide a payload</h2></div>
+        <p>The cover is preserved exactly; payload length is limited only by the hard ceiling.</p>
+        </div>
+
+        <div class="grid two">
+          <label>Carrier
+            <select id="hide-carrier">
+              <option value="zero-width">Zero-width, 2 bits</option>
+              <option value="zero-width-compat">Zero-width compat, 1 bit</option>
+              <option value="variation-selectors">Variation selectors, 4 bits</option>
+              <option value="unicode-tags">Unicode tags, 7 bits</option>
+            </select>
+          </label>
+          <div class="field action-field">
+            <span>Hard limit</span>
+            <button id="estimate" class="secondary">Show payload limit</button>
+          </div>
+        </div>
+
+        <label>Visible cover text
+          <textarea id="cover" rows="9" dir="auto" spellcheck="true" placeholder="Paste the ordinary message that should remain visible."></textarea>
+        </label>
+        <div class="inline-actions">
+          <button id="sample-cover" class="text-button">Load a long test cover</button>
+          <output id="capacity-result" class="quiet">No estimate yet</output>
+        </div>
+
+        <div class="payload-switch" role="group" aria-label="Payload kind">
+          <label><input type="radio" name="payload-kind" value="text" checked> Text</label>
+          <label><input type="radio" name="payload-kind" value="file"> File</label>
+        </div>
+        <label id="secret-field">Secret text
+          <textarea id="secret" rows="4" dir="auto" spellcheck="false" placeholder="The text to encrypt"></textarea>
+        </label>
+        <label id="file-field" hidden>Secret file
+          <input id="secret-file" type="file">
+        </label>
+        <label>Password
+          <input id="hide-password" type="password" autocomplete="new-password">
+        </label>
+        <button id="hide-submit" class="primary">Encrypt and hide</button>
+
+        <div id="hide-output" class="result" hidden>
+          <div class="result-heading"><h3>Stego text</h3><button id="copy-stego" class="secondary">Copy</button></div>
+          <textarea id="stego" rows="9" dir="auto" readonly></textarea>
+          <pre id="hide-report"></pre>
+        </div>
+      </section>
+
+      <section id="reveal" class="panel">
+        <div class="panel-heading">
+          <div><span class="step">02</span><h2>Reveal a payload</h2></div>
+          <p>Wrong keys and altered containers produce the same error.</p>
+        </div>
+        <label>Received text
+          <textarea id="received" rows="10" dir="auto" spellcheck="false"></textarea>
+        </label>
+        <label>Password
+          <input id="reveal-password" type="password" autocomplete="current-password">
+        </label>
+        <button id="reveal-submit" class="primary">Open</button>
+        <div id="reveal-output" class="result" hidden>
+          <div class="result-heading"><h3>Opened content</h3><button id="download-file" class="secondary" hidden>Download file</button></div>
+          <pre id="opened" class="opened" dir="auto"></pre>
+        </div>
+      </section>
+
+      <section id="inspect" class="panel">
+        <div class="panel-heading">
+          <div><span class="step">03</span><h2>Inspect without decrypting</h2></div>
+          <p>Scan validates the public header. Analyse exposes the detector statistics.</p>
+        </div>
+        <label>Text to inspect
+          <textarea id="inspect-text" rows="10" dir="auto" spellcheck="false"></textarea>
+        </label>
+        <div class="button-row">
+          <button id="scan-submit" class="primary">Scan and analyse</button>
+          <button id="strip-submit" class="secondary">Safe strip</button>
+        </div>
+        <pre id="inspect-output" class="result code-result" hidden></pre>
+      </section>
+
+      <section id="probe" class="panel">
+        <div class="panel-heading">
+          <div><span class="step">04</span><h2>Measure a transport</h2></div>
+          <p>Generate, send through one exact app/path, then paste what arrived.</p>
+        </div>
+        <div class="button-row">
+          <button id="probe-generate" class="primary">Generate probe</button>
+          <button id="copy-probe" class="secondary">Copy probe</button>
+        </div>
+        <label>Probe or returned text
+          <textarea id="probe-text" rows="12" spellcheck="false"></textarea>
+        </label>
+        <button id="probe-analyse" class="primary">Analyse returned probe</button>
+        <pre id="probe-output" class="result code-result" hidden></pre>
+      </section>
+    </main>
+
+    <footer class="shell">
+      <p>Sayeh 0.1.0 · MIT OR Apache-2.0 · No network layer, telemetry, or account system.</p>
+    </footer>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

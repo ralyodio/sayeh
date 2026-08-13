@@ -3,8 +3,8 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use anyhow::{Context, Result, bail};
-use quick_xml::Reader;
 use quick_xml::events::Event;
+use quick_xml::{Reader, XmlVersion};
 use rand_chacha::ChaCha20Rng;
 use rand_core::{RngCore, SeedableRng};
 use sayeh_core::carrier::{Carrier, CarrierKind};
@@ -244,7 +244,7 @@ fn read_nps_posts(path: &Path) -> Result<Vec<String>> {
                     in_terminals = true;
                 }
                 Event::Text(event) if in_post && !in_terminals => {
-                    text.push_str(&event.xml_content()?);
+                    text.push_str(&event.xml_content(XmlVersion::Implicit1_0)?);
                 }
                 Event::End(event) if event.name().as_ref() == b"terminals" => {
                     in_terminals = false;
@@ -407,7 +407,7 @@ fn write_vectors() -> Result<()> {
 
     let document = json!({
         "schema": 1,
-        "spec_version": "1.0.0-draft.1",
+        "spec_version": "1.0.0-draft.2",
         "cover": {
             "pattern": cover_pattern,
             "repetitions": cover_repetitions

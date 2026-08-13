@@ -151,6 +151,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f2032f911046de80f0a198e0901378627c33f59ea0ac00e363d481118bd70a53"
 
 [[package]]
+name = "base64"
+version = "0.22.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
+
+[[package]]
 name = "base64ct"
 version = "1.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -620,8 +626,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ff2abc00be7fca6ebc474524697ae276ad847ad0a6b3faa4bcb027e9a4614ad0"
 dependencies = [
  "cfg-if",
+ "js-sys",
  "libc",
  "wasi",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -988,9 +996,9 @@ checksum = "a1d01941d82fa2ab50be1e79e6714289dd7cde78eba4c074bc5a4374f650dfe0"
 
 [[package]]
 name = "quick-xml"
-version = "0.38.4"
+version = "0.41.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b66c2058c55a409d601666cffe35f04333cf1013010882cec174a7467cd4e21c"
+checksum = "e660451e55124f798a69a5af3f49ccfbefbd41910eefd25caf2393e1f3473ec1"
 dependencies = [
  "memchr",
 ]
@@ -1218,6 +1226,7 @@ dependencies = [
  "directories",
  "hex",
  "qrcode",
+ "rand_chacha 0.3.1",
  "rand_core 0.6.4",
  "rpassword",
  "sayeh-core",
@@ -1257,6 +1266,7 @@ name = "sayeh-ffi"
 version = "0.1.0"
 dependencies = [
  "sayeh-core",
+ "thiserror",
  "uniffi",
 ]
 
@@ -1264,7 +1274,11 @@ dependencies = [
 name = "sayeh-wasm"
 version = "0.1.0"
 dependencies = [
+ "base64",
+ "getrandom 0.2.17",
  "sayeh-core",
+ "serde",
+ "serde_json",
  "wasm-bindgen",
 ]
 
@@ -1530,7 +1544,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3291800a6b06569f7d3e15bdb6dc235e0f0c8bd3eb07177f430057feb076415f"
 dependencies = [
  "anyhow",
+ "camino",
  "cargo_metadata",
+ "clap",
  "uniffi_bindgen",
  "uniffi_core",
  "uniffi_macros",
@@ -1897,6 +1913,7 @@ dependencies = [
  "sayeh-core",
  "serde_json",
  "sha2",
+ "uniffi",
  "zeroize",
 ]
 

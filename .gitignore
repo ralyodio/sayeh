@@ -1,5 +1,6 @@
 **/target/
 /build/
+/demo/pkg/
 **/build/
 **/.gradle/
 **/local.properties

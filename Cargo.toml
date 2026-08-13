@@ -20,6 +20,7 @@ authors = ["EntropyRoot"]
 [workspace.dependencies]
 anyhow = "1.0.98"
 argon2 = { version = "0.5.3", default-features = false, features = ["alloc", "zeroize"] }
+base64 = "0.22.1"
 chacha20poly1305 = { version = "0.10.1", default-features = false, features = ["alloc", "getrandom"] }
 clap = { version = "4.5.40", features = ["derive", "env", "wrap_help"] }
 criterion = "0.6.0"
@@ -30,7 +31,7 @@ hex = "0.4.3"
 hkdf = "0.12.4"
 proptest = "1.7.0"
 qrcode = { version = "0.14.1", default-features = false }
-quick-xml = "0.38.3"
+quick-xml = "0.41.0"
 rand_chacha = "0.3.1"
 rand_core = { version = "0.6.4", features = ["getrandom"] }
 serde = { version = "1.0.219", features = ["derive"] }

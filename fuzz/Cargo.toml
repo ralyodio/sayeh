@@ -9,7 +9,7 @@ cargo-fuzz = true
 
 [dependencies]
 libfuzzer-sys = "0.4"
-sayeh-core = { path = "../sayeh-core", features = ["contacts"] }
+sayeh-core = { version = "0.1.0", path = "../sayeh-core", features = ["contacts"] }
 
 [[bin]]
 name = "container_parser"

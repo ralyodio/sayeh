@@ -12,6 +12,6 @@ authors.workspace = true
 crate-type = ["cdylib", "staticlib", "rlib"]
 
 [dependencies]
-sayeh-core = { path = "../sayeh-core", features = ["contacts"] }
+sayeh-core = { version = "0.1.0", path = "../sayeh-core", features = ["contacts"] }
+thiserror.workspace = true
 uniffi.workspace = true
-

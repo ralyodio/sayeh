@@ -12,6 +12,12 @@ authors.workspace = true
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-sayeh-core = { path = "../sayeh-core" }
+base64.workspace = true
+getrandom.workspace = true
+sayeh-core = { version = "0.1.0", path = "../sayeh-core" }
+serde.workspace = true
+serde_json.workspace = true
 wasm-bindgen.workspace = true
 
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = false
