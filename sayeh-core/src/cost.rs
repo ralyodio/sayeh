@@ -92,19 +92,6 @@ impl CostMap {
     pub const fn grapheme_count(&self) -> usize {
         self.graphemes
     }
-
-    /// Cover-derived limit from spec section 8.
-    pub fn safe_slots(&self) -> usize {
-        let quality: u64 = self
-            .candidates
-            .iter()
-            .map(|candidate| u64::from(255u8.saturating_sub(candidate.cost)))
-            .sum();
-        let slots = quality / (255 * 8);
-        usize::try_from(slots)
-            .unwrap_or(usize::MAX)
-            .min(self.candidates.len())
-    }
 }
 
 fn is_arabic_letter(ch: char) -> bool {

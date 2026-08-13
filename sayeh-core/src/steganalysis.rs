@@ -16,7 +16,7 @@ pub struct Analysis {
 }
 
 impl Analysis {
-    /// A measured threshold used by the CLI warning, not a security proof.
+    /// A measured analysis threshold, not a security proof or an encode limit.
     pub const fn likely_detectable(&self) -> bool {
         self.suspicion_score >= 50
     }

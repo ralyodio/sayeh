@@ -28,6 +28,9 @@ pub fn seal_vault_with_rng<R>(
 where
     R: RngCore + CryptoRng,
 {
+    if password.is_empty() {
+        return Err(Error::EmptyPassword);
+    }
     if plaintext.len() > MAX_VAULT_BYTES {
         return Err(Error::ContentTooLarge);
     }
@@ -81,6 +84,9 @@ where
 
 /// Authenticates and decrypts serialized contact state.
 pub fn open_vault(bytes: &[u8], password: &[u8]) -> Result<Zeroizing<Vec<u8>>> {
+    if password.is_empty() {
+        return Err(Error::OpenFailed);
+    }
     if bytes.len() < HEADER_BYTES || !bytes.starts_with(&MAGIC) {
         return Err(Error::OpenFailed);
     }

@@ -20,8 +20,11 @@ hex.workspace = true
 qrcode.workspace = true
 rand_core.workspace = true
 rpassword.workspace = true
-sayeh-core = { path = "../sayeh-core", features = ["contacts"] }
+sayeh-core = { version = "0.1.0", path = "../sayeh-core", features = ["contacts"] }
 serde.workspace = true
 serde_json.workspace = true
 tempfile.workspace = true
 zeroize.workspace = true
+
+[dev-dependencies]
+rand_chacha.workspace = true

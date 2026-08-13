@@ -1,6 +1,6 @@
 use proptest::prelude::*;
 use rand_chacha::ChaCha20Rng;
-use rand_core::SeedableRng;
+use rand_core::{RngCore, SeedableRng};
 use sayeh_core::Error;
 use sayeh_core::carrier::CarrierKind;
 use sayeh_core::crypto::Argon2Params;
@@ -111,15 +111,62 @@ fn wrong_password_and_tamper_are_indistinguishable() -> Result<(), Error> {
 }
 
 #[test]
-fn estimator_refuses_signal_flare_covers() -> Result<(), Error> {
-    let estimate = capacity(
-        "two words",
-        CarrierKind::ZeroWidth,
-        CapacityMode::Password,
-        0,
+fn short_persian_cover_carries_five_hundred_bytes_without_growth() -> Result<(), Error> {
+    let cover = "سلام خوبی؟";
+    let mut secret = [0u8; 500];
+    ChaCha20Rng::from_seed([0x43u8; 32]).fill_bytes(&mut secret);
+    let mut rng = ChaCha20Rng::from_seed([0x44u8; 32]);
+    let hidden = hide_password_with_rng(
+        cover,
+        Content::File {
+            name: "payload.bin",
+            bytes: &secret,
+        },
+        b"short cover password",
+        PasswordOptions {
+            carrier: CarrierKind::ZeroWidth,
+            parameters: test_parameters(),
+            created_at: 7,
+        },
+        &mut rng,
     )?;
-    assert_eq!(estimate.content_bytes, 0);
-    assert!(estimate.safe_slots < 10);
+    let opened = reveal_password(&hidden.text, b"short cover password")?;
+    assert_eq!(opened.bytes(), secret);
+    let visible: String = hidden
+        .text
+        .chars()
+        .filter(|ch| !CarrierKind::ZeroWidth.contains(*ch))
+        .collect();
+    assert_eq!(visible, cover);
+    assert_eq!(hidden.report.content_bytes, 500);
+    assert!(!hidden.report.compressed);
+    Ok(())
+}
+
+#[test]
+fn capacity_reports_only_the_hard_payload_limit() -> Result<(), Error> {
+    let estimate = capacity(CarrierKind::ZeroWidth, CapacityMode::Password, 0)?;
+    assert_eq!(estimate.content_bytes, 16 * 1024 * 1024);
+    assert!(estimate.carrier_symbols > estimate.content_bytes);
+    Ok(())
+}
+
+#[test]
+fn empty_password_is_an_explicit_round_trip_value() -> Result<(), Error> {
+    let mut rng = ChaCha20Rng::from_seed([0x45u8; 32]);
+    let hidden = hide_password_with_rng(
+        "بدون رمز",
+        Content::Text("concealment only"),
+        b"",
+        PasswordOptions {
+            carrier: CarrierKind::ZeroWidth,
+            parameters: test_parameters(),
+            created_at: 9,
+        },
+        &mut rng,
+    )?;
+    let opened = reveal_password(&hidden.text, b"")?;
+    assert_eq!(opened.text(), Some("concealment only"));
     Ok(())
 }
 

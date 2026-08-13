@@ -1062,5 +1062,5 @@
     "stego_utf8_sha256": "c98d1f415eea2a604f266bc8305d3278499b1070e4af4429dac6e3f833ecc673"
   },
   "schema": 1,
-  "spec_version": "1.0.0-draft.1"
+  "spec_version": "1.0.0-draft.2"
 }

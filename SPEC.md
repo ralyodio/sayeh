@@ -1,8 +1,8 @@
 # Sayeh wire format v4
 
-Spec version: **1.0.0-draft.1**  
-Wire version: **4**  
-Magic: **`SYH4`**
+- Spec version: **1.0.0-draft.2**
+- Wire version: **4**
+- Magic: **`SYH4`**
 
 This document is the interoperability contract for Sayeh v4. The spec has its
 own version because a crate release and a wire-format change are different
@@ -17,7 +17,7 @@ return a specific migration error; it must not attempt to open it as v4.
 ## 1. Scope and byte order
 
 This spec defines the encrypted container, carrier mappings, cost map,
-capacity rule, and scattered embedding revision 1. It does not define a
+dense scattered embedding revision 1, and hard limits. It does not define a
 transport. Chat applications remain the transport.
 
 All integers are unsigned and big endian. Lengths count bytes unless a field
@@ -77,9 +77,11 @@ in contact mode. Revision 1 rejects other lengths.
 | 28 | 16 | random salt |
 | 44 | 24 | random XChaCha20 nonce |
 
-The password is its exact UTF-8 byte sequence. It is not normalized. The key is
-the 32-byte Argon2id v1.3 tag with the stored parameters and no secret value or
-associated data.
+The password is its exact UTF-8 byte sequence. It is not normalized and the
+empty sequence is valid. The key is the 32-byte Argon2id v1.3 tag with the
+stored parameters and no secret value or associated data. An empty password
+provides no effective confidentiality against an observer who knows this
+format; it is an explicit concealment-only choice.
 
 Readers enforce both a floor and a ceiling before allocating Argon2 memory:
 
@@ -89,10 +91,10 @@ Readers enforce both a floor and a ceiling before allocating Argon2 memory:
 | `t` | 2 | 10 |
 | `p` | 1 | 8 |
 
-The shipping profile starts at `m=65,536`, `t=3`, `p=1`, then the platform
-calibration task may raise `t` to reach 0.5--1.0 seconds. Applications store the
-chosen values in every message. The benchmark result and device model belong
-in release notes; the constants alone are not a performance claim.
+The shipping profile is `m=65,536`, `t=10`, `p=1`, selected by measurement on an
+ARM64 Android device. Applications store the chosen values in every message.
+The benchmark result and device model belong in release notes; the constants
+alone are not a performance claim.
 
 ### 3.2 Contact mode fields
 
@@ -227,23 +229,24 @@ The rules are intentionally small. Corpus measurements may justify a new
 embedding revision; changing costs under revision 1 would make deterministic
 vectors lie.
 
-## 8. Safe rate and capacity
+## 8. Capacity and length exposure
 
-For each finite-cost candidate define `quality = 255 - cost`. The safe slot
-budget is:
+Cover length is not a capacity limit. An encoder accepts a non-empty or empty
+cover with any content through the 16 MiB hard payload ceiling. It never grows
+the cover, refuses a payload, emits a warning, or chunks solely because the
+hidden-to-visible ratio is high.
 
-```text
-safe_slots = floor(sum(quality) / (255 * 8))
-```
+Capacity reports account for the selected mode header, AEAD tag, inner frame,
+file-name bytes, 64-byte padding bucket and carrier bit width. They report the
+hard payload ceiling and the worst-case carrier expansion at that ceiling.
+Transport survival is measured by the probe in section 11; no cover statistic
+can establish a transport limit.
 
-It is capped at the number of finite candidates and at one scalar per gap.
-This is a cover-derived ceiling, not a promise of undetectability. The payload
-fits only when its encoded carrier scalar count is at most `safe_slots`.
-
-Capacity reports must account for the selected mode header, AEAD tag, inner
-frame, file-name bytes, 64-byte padding bucket, and carrier bit width. They
-report a maximum for incompressible content; an application may separately
-show the measured result for a particular compressible input.
+This exposes message length and carrier density. That is an accepted threat-
+model trade-off: encryption protects the content, while raw Unicode embedding
+only hides it from a casual reader. A user pursuing the stronger, optional goal
+of concealing payload existence can choose a longer cover, chunking or a
+linguistic carrier without changing the default encoder contract.
 
 ## 9. Keyed scattered embedding
 
@@ -256,17 +259,23 @@ info       = "sayeh/v4/embed/rev1" || carrier_id || cover_hash
 seed       = HKDF-SHA256(salt, encryption_key, info, 32)
 ```
 
-A ChaCha20 RNG initialized with `seed` assigns each finite candidate a
-64-bit random value. Its rank is `(cost + random[0..31], random64)`. Candidates
-are considered by ascending rank. A candidate adjacent to an already selected
-gap is skipped; if that pass cannot satisfy the request, a second pass permits
-adjacency. The encoder selects exactly the required number of gaps, sorts them
-by byte offset, and writes carrier symbols in stream order.
+A ChaCha20 RNG initialized with `seed` assigns each finite candidate a 64-bit
+random value. Its rank is `(cost + random[0..31], random64)`. Candidates are
+considered by ascending rank. A candidate adjacent to an already selected gap
+is skipped; a second pass permits adjacency until every finite candidate is in
+the selected set or no more are needed.
+
+When the carrier stream is longer than the selected set, the encoder places a
+run at each selected gap. Every run receives `floor(symbols / gaps)` symbols;
+the remainder is assigned to gaps in a keyed random order. With no finite gap,
+the entire stream is placed at byte offset zero. The encoder sorts the selected
+gaps by byte offset and writes the symbol runs in stream order, so extraction
+still reads left to right without a key.
 
 Thus the key chooses the low-cost subset and repeated messages do not reuse a
-placement pattern because the nonce changes. Extraction still reads carrier
-symbols from left to right, so `scan` does not need a password. More than one
-carrier in a contiguous run is never emitted.
+placement pattern because the nonce changes. Dense output necessarily creates
+contiguous carrier runs when the payload has more symbols than eligible gaps;
+this length and density exposure is intentional in the default threat model.
 
 ## 10. Cleaning
 
@@ -315,4 +324,3 @@ copies published Argon2id, XChaCha20-Poly1305 and X25519 vectors with source
 citations. `carrier-vectors.json` fixes the scalar mappings. Deterministic v4
 container vectors are generated with the repository's vector RNG and committed
 as `wire-v4.json`; product builds do not compile that RNG.
-

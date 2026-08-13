@@ -99,9 +99,6 @@ pub fn password(
             .context("read password from terminal")?
             .into_bytes()
     };
-    if bytes.is_empty() {
-        bail!("password must not be empty");
-    }
     Ok(Zeroizing::new(bytes))
 }
 

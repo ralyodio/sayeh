@@ -27,10 +27,10 @@ impl Argon2Params {
     pub const MIN_LANES: u8 = 1;
     pub const MAX_LANES: u8 = 8;
 
-    /// RFC 9106's 64 MiB profile, with one lane for predictable mobile load.
+    /// The measured 64 MiB, single-lane mobile profile.
     pub const DEFAULT: Self = Self {
         memory_kib: 65_536,
-        passes: 3,
+        passes: 10,
         lanes: 1,
     };
 
@@ -68,9 +68,6 @@ pub fn derive_password_key(
     salt: &[u8; SALT_BYTES],
     parameters: Argon2Params,
 ) -> Result<Zeroizing<[u8; KEY_BYTES]>> {
-    if password.is_empty() {
-        return Err(Error::EmptyPassword);
-    }
     let params = Params::new(
         parameters.memory_kib(),
         parameters.passes(),

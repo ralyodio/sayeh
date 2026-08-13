@@ -2,6 +2,8 @@ use std::fs;
 use std::path::Path;
 use std::process::{Command, Output};
 
+use rand_chacha::ChaCha20Rng;
+use rand_core::{RngCore, SeedableRng};
 use serde_json::Value;
 #[test]
 fn password_commands_round_trip_scan_strip_and_analyse() -> Result<(), Box<dyn std::error::Error>> {
@@ -61,7 +63,93 @@ fn password_commands_round_trip_scan_strip_and_analyse() -> Result<(), Box<dyn s
         directory.path(),
         ["analyse", "--input", path(&hidden)],
     )?)?;
-    success(run(directory.path(), ["capacity", "--cover", "two words"])?)?;
+    success(run(directory.path(), ["capacity"])?)?;
+    Ok(())
+}
+
+#[test]
+fn five_hundred_bytes_fit_a_two_word_cover_without_ratio_warning()
+-> Result<(), Box<dyn std::error::Error>> {
+    let directory = tempfile::tempdir()?;
+    let secret = directory.path().join("payload.bin");
+    let hidden = directory.path().join("hidden.txt");
+    let revealed = directory.path().join("revealed.bin");
+    let mut bytes = vec![0u8; 500];
+    ChaCha20Rng::from_seed([0x43u8; 32]).fill_bytes(&mut bytes);
+    fs::write(&secret, &bytes)?;
+    let output = success(run(
+        directory.path(),
+        [
+            "hide",
+            "--cover",
+            "سلام خوبی؟",
+            "--file",
+            path(&secret),
+            "--output",
+            path(&hidden),
+        ],
+    )?)?;
+    let stderr = String::from_utf8_lossy(&output.stderr).to_ascii_lowercase();
+    assert!(!stderr.contains("warning"));
+    assert!(!stderr.contains("detectable"));
+    assert!(!stderr.contains("capacity"));
+    let scan = success(run(
+        directory.path(),
+        ["--json", "scan", "--input", path(&hidden)],
+    )?)?;
+    let scan: Value = serde_json::from_slice(&scan.stdout)?;
+    assert_eq!(scan["compressed"], false);
+    success(run(
+        directory.path(),
+        [
+            "reveal",
+            "--input",
+            path(&hidden),
+            "--output",
+            path(&revealed),
+        ],
+    )?)?;
+    assert_eq!(fs::read(&revealed)?, bytes);
+    Ok(())
+}
+
+#[test]
+fn message_password_may_be_empty() -> Result<(), Box<dyn std::error::Error>> {
+    let directory = tempfile::tempdir()?;
+    let secret = directory.path().join("secret.txt");
+    let password = directory.path().join("empty-password.txt");
+    let hidden = directory.path().join("hidden.txt");
+    let revealed = directory.path().join("revealed.txt");
+    fs::write(&secret, "concealment only")?;
+    fs::write(&password, "")?;
+
+    success(run(
+        directory.path(),
+        [
+            "hide",
+            "--cover",
+            "بدون رمز",
+            "--secret-file",
+            path(&secret),
+            "--password-file",
+            path(&password),
+            "--output",
+            path(&hidden),
+        ],
+    )?)?;
+    success(run(
+        directory.path(),
+        [
+            "reveal",
+            "--input",
+            path(&hidden),
+            "--password-file",
+            path(&password),
+            "--output",
+            path(&revealed),
+        ],
+    )?)?;
+    assert_eq!(fs::read(&revealed)?, fs::read(&secret)?);
     Ok(())
 }
 

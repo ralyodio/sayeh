@@ -6,7 +6,6 @@ use crate::container::{
     CONTACT_HEADER_BYTES, Header, ModeHeader, PASSWORD_HEADER_BYTES, PasswordHeader,
     SealedContainer,
 };
-use crate::cost::CostMap;
 use crate::crypto::{
     Argon2Params, NONCE_BYTES, SALT_BYTES, TAG_BYTES, derive_password_key, open, random_array, seal,
 };
@@ -15,7 +14,6 @@ use crate::frame::{
     BUCKET_BYTES, Content, FRAME_FIXED_BYTES, MAX_CONTENT_BYTES, OpenedPayload, compress, decode,
     encode, pad,
 };
-use crate::steganalysis::{Analysis, analyse};
 use crate::{Error, Result};
 
 /// Password-mode settings supplied by an application surface.
@@ -43,9 +41,7 @@ pub struct HideReport {
     pub content_bytes: usize,
     pub container_bytes: usize,
     pub carrier_symbols: usize,
-    pub safe_slots: usize,
     pub compressed: bool,
-    pub analysis: Analysis,
 }
 
 /// Stego text and its measured report.
@@ -80,9 +76,9 @@ impl ScannedPayload {
 /// Conservative capacity for incompressible content.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Capacity {
-    pub safe_slots: usize,
     pub container_bytes: usize,
     pub content_bytes: usize,
+    pub carrier_symbols: usize,
 }
 
 /// Header shape used by the capacity estimator.
@@ -133,17 +129,13 @@ where
     let container = SealedContainer::new(header, ciphertext)?;
     let raw = container.marshal()?;
     let text = scatter_bytes(cover, &raw, options.carrier, &key, &nonce)?;
-    let map = CostMap::new(cover, options.carrier);
     let carrier_symbols = options.carrier.symbols_for_bytes(raw.len())?;
-    let analysis = analyse(&text, options.carrier);
     let report = HideReport {
         carrier: options.carrier,
         content_bytes: content.bytes().len(),
         container_bytes: raw.len(),
         carrier_symbols,
-        safe_slots: map.safe_slots(),
         compressed,
-        analysis,
     };
     Ok(HiddenMessage { text, report })
 }
@@ -206,9 +198,8 @@ pub fn clean_safe(text: &str) -> String {
     strip_safe(text, identified)
 }
 
-/// Computes the largest incompressible content that stays below the safe rate.
+/// Reports the hard payload ceiling and its worst-case carrier expansion.
 pub fn capacity(
-    cover: &str,
     carrier: CarrierKind,
     mode: CapacityMode,
     file_name_bytes: usize,
@@ -216,30 +207,17 @@ pub fn capacity(
     if file_name_bytes > 255 {
         return Err(Error::InvalidFileName);
     }
-    let safe_slots = CostMap::new(cover, carrier).safe_slots();
     let header_bytes = match mode {
         CapacityMode::Password => PASSWORD_HEADER_BYTES,
         CapacityMode::Contact => CONTACT_HEADER_BYTES,
     };
-    let mut low = 0usize;
-    let mut high = MAX_CONTENT_BYTES.saturating_add(1);
-    while low < high {
-        let middle = low + (high - low) / 2;
-        let fits = container_size(header_bytes, file_name_bytes, middle)
-            .and_then(|size| carrier.symbols_for_bytes(size))
-            .is_ok_and(|symbols| symbols <= safe_slots);
-        if fits {
-            low = middle.saturating_add(1);
-        } else {
-            high = middle;
-        }
-    }
-    let content_bytes = low.saturating_sub(1);
+    let content_bytes = MAX_CONTENT_BYTES;
     let container_bytes = container_size(header_bytes, file_name_bytes, content_bytes)?;
+    let carrier_symbols = carrier.symbols_for_bytes(container_bytes)?;
     Ok(Capacity {
-        safe_slots,
         container_bytes,
         content_bytes,
+        carrier_symbols,
     })
 }
 

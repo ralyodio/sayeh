@@ -104,12 +104,7 @@ pub enum ModeChoice {
 }
 
 #[derive(Debug, Args)]
-#[command(group(ArgGroup::new("cover_source").required(true).args(["cover", "cover_file"])))]
 pub struct CapacityArgs {
-    #[arg(long, value_name = "TEXT")]
-    pub cover: Option<String>,
-    #[arg(long, value_name = "PATH")]
-    pub cover_file: Option<PathBuf>,
     #[arg(long, default_value = "zero-width")]
     pub carrier: CarrierKind,
     #[arg(long, value_enum, default_value = "password")]

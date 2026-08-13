@@ -126,24 +126,13 @@ fn hide(args: HideArgs, vault_override: Option<PathBuf>, json_output: bool) -> R
                 "content_bytes": hidden.report.content_bytes,
                 "container_bytes": hidden.report.container_bytes,
                 "carrier_symbols": hidden.report.carrier_symbols,
-                "safe_slots": hidden.report.safe_slots,
-                "compressed": hidden.report.compressed,
-                "suspicion_score": hidden.report.analysis.suspicion_score,
-                "likely_detectable": hidden.report.analysis.likely_detectable()
+                "compressed": hidden.report.compressed
             }))?
         );
     } else {
         eprintln!(
-            "hidden: {} bytes, {} / {} safe symbols, detector {}/100{}",
-            hidden.report.content_bytes,
-            hidden.report.carrier_symbols,
-            hidden.report.safe_slots,
-            hidden.report.analysis.suspicion_score,
-            if hidden.report.analysis.likely_detectable() {
-                " (warning: likely detectable)"
-            } else {
-                ""
-            }
+            "hidden: {} bytes, {} carrier symbols",
+            hidden.report.content_bytes, hidden.report.carrier_symbols
         );
     }
     Ok(())
@@ -298,13 +287,11 @@ fn analyse(args: AnalyseArgs, json_output: bool) -> Result<()> {
 }
 
 fn estimate(args: CapacityArgs, json_output: bool) -> Result<()> {
-    let cover = read_cover(args.cover, args.cover_file)?;
     let mode = match args.mode {
         ModeChoice::Password => CapacityMode::Password,
         ModeChoice::Contact => CapacityMode::Contact,
     };
     let estimate = capacity(
-        &cover,
         args.carrier,
         mode,
         args.file_name.as_deref().map_or(0, str::len),
@@ -314,20 +301,20 @@ fn estimate(args: CapacityArgs, json_output: bool) -> Result<()> {
             "{}",
             serde_json::to_string(&json!({
                 "carrier": args.carrier.name(),
-                "safe_slots": estimate.safe_slots,
                 "container_bytes": estimate.container_bytes,
-                "max_incompressible_content_bytes": estimate.content_bytes
+                "max_payload_bytes": estimate.content_bytes,
+                "carrier_symbols_at_limit": estimate.carrier_symbols
             }))?
         );
     } else {
-        println!("safe carrier slots: {}", estimate.safe_slots);
-        println!(
-            "maximum incompressible content: {} bytes",
-            estimate.content_bytes
-        );
+        println!("maximum payload: {} bytes", estimate.content_bytes);
         println!(
             "container at that limit: {} bytes",
             estimate.container_bytes
+        );
+        println!(
+            "carrier symbols at that limit: {}",
+            estimate.carrier_symbols
         );
     }
     Ok(())
@@ -557,7 +544,11 @@ fn print_identity(public: IdentityPublic, created: Option<&Path>, json_output: b
 }
 
 fn vault_password() -> Result<zeroize::Zeroizing<Vec<u8>>> {
-    password(None, "SAYEH_VAULT_PASSWORD", "Vault password: ")
+    let secret = password(None, "SAYEH_VAULT_PASSWORD", "Vault password: ")?;
+    if secret.is_empty() {
+        bail!("vault password must not be empty");
+    }
+    Ok(secret)
 }
 
 fn require_file_output(text: bool, output: Option<&Path>) -> Result<()> {

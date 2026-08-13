@@ -30,8 +30,6 @@ pub enum Error {
     RandomSource,
     #[error("the cover already contains {carrier} carrier characters")]
     CoverContainsCarrier { carrier: &'static str },
-    #[error("cover capacity is {available} symbols, but this payload needs {required}")]
-    CapacityExceeded { required: usize, available: usize },
     #[error("invalid file name")]
     InvalidFileName,
     #[error("content exceeds the 16 MiB limit")]

@@ -11,12 +11,10 @@ use zeroize::Zeroizing;
 
 use crate::carrier::CarrierKind;
 use crate::container::{ContactHeader, Header, ModeHeader, SealedContainer};
-use crate::cost::CostMap;
 use crate::crypto::{KEY_BYTES, NONCE_BYTES, TAG_BYTES, open, random_array, seal};
 use crate::embed::scatter_bytes;
 use crate::frame::{Content, OpenedPayload, compress, decode, encode, pad};
 use crate::pipeline::{HiddenMessage, HideReport, scan};
-use crate::steganalysis::analyse;
 use crate::{Error, Result};
 
 const INFO_PREFIX: &[u8] = b"sayeh/v4/contact/aead";
@@ -238,15 +236,12 @@ where
     let container = SealedContainer::new(header, ciphertext)?;
     let raw = container.marshal()?;
     let text = scatter_bytes(cover, &raw, options.carrier, &key, &nonce)?;
-    let map = CostMap::new(cover, options.carrier);
     let report = HideReport {
         carrier: options.carrier,
         content_bytes: content.bytes().len(),
         container_bytes: raw.len(),
         carrier_symbols: options.carrier.symbols_for_bytes(raw.len())?,
-        safe_slots: map.safe_slots(),
         compressed,
-        analysis: analyse(&text, options.carrier),
     };
     Ok(HiddenMessage { text, report })
 }
