@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@color/text"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.02" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tagline"
+            android:textColor="@color/muted"
+            android:textSize="13sp"
+            android:paddingTop="2dp"
+            android:paddingBottom="16dp" />
+
+        <!-- Mode switch -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_segment"
+            android:padding="4dp">
+
+            <Button
+                android:id="@+id/tab_hide"
+                style="@style/Tab"
+                android:text="@string/tab_hide" />
+
+            <Button
+                android:id="@+id/tab_reveal"
+                style="@style/Tab"
+                android:text="@string/tab_reveal" />
+        </LinearLayout>
+
+        <!-- ============================ HIDE ============================ -->
+        <LinearLayout
+            android:id="@+id/card_hide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:padding="16dp"
+            android:layout_marginTop="16dp">
+
+            <TextView style="@style/Label" android:text="@string/label_cover" />
+
+            <EditText
+                android:id="@+id/input_cover"
+                style="@style/Field"
+                android:hint="@string/hint_cover"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:minLines="3"
+                android:maxLines="8"
+                android:importantForAutofill="no" />
+
+            <TextView
+                style="@style/Label"
+                android:text="@string/label_secret"
+                android:paddingTop="16dp" />
+
+            <EditText
+                android:id="@+id/input_secret"
+                style="@style/Field"
+                android:hint="@string/hint_secret"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:minLines="3"
+                android:maxLines="8"
+                android:importantForAutofill="no" />
+
+            <TextView
+                style="@style/Label"
+                android:text="@string/label_password"
+                android:paddingTop="16dp" />
+
+            <EditText
+                android:id="@+id/input_password"
+                style="@style/Field"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:importantForAutofill="no" />
+
+            <CheckBox
+                android:id="@+id/check_show_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/show_password"
+                android:textColor="@color/muted"
+                android:textSize="13sp"
+                android:paddingTop="4dp" />
+
+            <TextView
+                style="@style/Label"
+                android:text="@string/label_codec"
+                android:paddingTop="12dp" />
+
+            <Spinner
+                android:id="@+id/spinner_codec"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_field"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp" />
+
+            <Button
+                android:id="@+id/btn_hide"
+                style="@style/Primary"
+                android:layout_width="match_parent"
+                android:text="@string/btn_hide"
+                android:layout_marginTop="18dp" />
+        </LinearLayout>
+
+        <!-- =========================== REVEAL =========================== -->
+        <LinearLayout
+            android:id="@+id/card_reveal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:padding="16dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone">
+
+            <TextView style="@style/Label" android:text="@string/label_stego" />
+
+            <EditText
+                android:id="@+id/input_stego"
+                style="@style/Field"
+                android:hint="@string/hint_stego"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:minLines="5"
+                android:maxLines="12"
+                android:importantForAutofill="no" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <Button
+                    android:id="@+id/btn_paste"
+                    style="@style/Ghost"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/btn_paste" />
+
+                <Button
+                    android:id="@+id/btn_scan"
+                    style="@style/Ghost"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/btn_scan" />
+
+                <Button
+                    android:id="@+id/btn_clean"
+                    style="@style/Ghost"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/btn_clean" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/Label"
+                android:text="@string/label_password"
+                android:paddingTop="16dp" />
+
+            <EditText
+                android:id="@+id/input_password_reveal"
+                style="@style/Field"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:importantForAutofill="no" />
+
+            <Button
+                android:id="@+id/btn_reveal"
+                style="@style/Primary"
+                android:layout_width="match_parent"
+                android:text="@string/btn_reveal"
+                android:layout_marginTop="18dp" />
+        </LinearLayout>
+
+        <!-- =========================== STATUS =========================== -->
+        <ProgressBar
+            android:id="@+id/progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:layout_marginTop="12dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/muted"
+            android:textSize="13sp"
+            android:paddingTop="12dp"
+            android:visibility="gone" />
+
+        <!-- =========================== RESULT =========================== -->
+        <LinearLayout
+            android:id="@+id/card_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:padding="16dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone">
+
+            <TextView style="@style/Label" android:text="@string/label_result" />
+
+            <TextView
+                android:id="@+id/output"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_field"
+                android:padding="12dp"
+                android:textColor="@color/text"
+                android:textSize="14sp"
+                android:textIsSelectable="true"
+                android:fontFamily="monospace"
+                android:textAlignment="viewStart" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp">
+
+                <Button
+                    android:id="@+id/btn_copy"
+                    style="@style/Ghost"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/btn_copy" />
+
+                <Button
+                    android:id="@+id/btn_share"
+                    style="@style/Ghost"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/btn_share" />
+
+                <Button
+                    android:id="@+id/btn_clear"
+                    style="@style/Ghost"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/btn_clear" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/warn_transit"
+            android:textColor="@color/muted"
+            android:textSize="12sp"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp" />
+    </LinearLayout>
+</ScrollView>

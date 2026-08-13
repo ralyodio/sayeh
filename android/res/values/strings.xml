@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sayeh</string>
+
+    <string name="tagline">Zero-width steganography · AES-256-GCM</string>
+
+    <string name="tab_hide">HIDE</string>
+    <string name="tab_reveal">REVEAL</string>
+
+    <string name="label_cover">Cover text</string>
+    <string name="hint_cover">An ordinary looking message. The secret is woven into it invisibly.</string>
+    <string name="label_secret">Secret message</string>
+    <string name="hint_secret">What you actually want to say.</string>
+    <string name="label_password">Password</string>
+    <string name="hint_password">Leave empty to hide without encryption</string>
+    <string name="show_password">Show</string>
+    <string name="label_codec">Carrier density</string>
+
+    <string name="label_stego">Text that carries a hidden message</string>
+    <string name="hint_stego">Paste the message you received here.</string>
+
+    <string name="btn_hide">Hide message</string>
+    <string name="btn_reveal">Extract message</string>
+    <string name="btn_scan">Scan</string>
+    <string name="btn_clean">Clean</string>
+    <string name="btn_copy">Copy</string>
+    <string name="btn_share">Share</string>
+    <string name="btn_paste">Paste</string>
+    <string name="btn_clear">Clear</string>
+
+    <string name="label_result">Result</string>
+    <string name="result_placeholder">Nothing yet.</string>
+
+    <string name="working">Working…</string>
+    <string name="deriving">Deriving the key…</string>
+    <string name="copied">Copied. Invisible characters included.</string>
+    <string name="nothing_to_copy">There is nothing to copy yet.</string>
+    <string name="paste_empty">The clipboard has no text.</string>
+    <string name="warn_transit">Note: some apps strip invisible characters. If the other side sees nothing, send it as a file.</string>
+</resources>

@@ -1,0 +1,13 @@
+/target/
+/build/
+**/build/
+**/.gradle/
+**/local.properties
+**/keystore/
+*.jks
+*.keystore
+AGENT_BRIEF.md
+*.swp
+*.tmp
+.DS_Store
+

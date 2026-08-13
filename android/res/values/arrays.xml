@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="codec_labels">
+        <item>Compact — 2 bits per character (default)</item>
+        <item>Compatible — 1 bit per character</item>
+    </string-array>
+</resources>
